@@ -11,8 +11,6 @@ server holds ciphertext only. It is standalone and self-hostable (the apps take 
 - Protocol and threat model: [docs/PROTOCOL.md](docs/PROTOCOL.md)
 - Crypto test vectors for client authors: [docs/test-vectors.json](docs/test-vectors.json), generated from fixed
   test inputs by [scripts/gen_vectors.py](scripts/gen_vectors.py) (needs PyNaCl)
-- Docs: [running the vault](https://website.pocketnutrition.org/docs/self-hosting/run-the-platform#vault) and the
-  [architecture overview](https://website.pocketnutrition.org/docs/architecture/overview)
 
 ## What it does, and what it never sees
 
@@ -127,9 +125,8 @@ for i in 1 2 3; do
 done   # 200, 200, 429 when the header is handled correctly
 ```
 
-No deployment manifests are included in this repository. The vault is also an optional service of the full platform:
-see [running the vault](https://website.pocketnutrition.org/docs/self-hosting/run-the-platform#vault) for the Docker
-Compose route.
+No deployment manifests are included in this repository. The vault is also an optional service of the full platform
+and its Docker Compose file, see [pocketnutrition.org](https://pocketnutrition.org).
 
 ## Configuration
 
