@@ -1,0 +1,15 @@
+# The Dockerfile copies only requirements.txt and app/: keep version control data, local environments, secrets
+# and the tests out of the build context.
+.git
+.github
+.venv
+venv
+**/__pycache__
+**/*.py[cod]
+.pytest_cache
+.env
+.env.*
+!.env.example
+tests/
+vault.db*
+.DS_Store
