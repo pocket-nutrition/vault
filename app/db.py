@@ -2,7 +2,7 @@ from pathlib import Path
 
 from alembic import command
 from alembic.config import Config
-from sqlalchemy import create_engine, inspect, text
+from sqlalchemy import create_engine, inspect, make_url, text
 from sqlalchemy.engine import Engine
 from sqlalchemy.pool import StaticPool
 
@@ -15,7 +15,11 @@ def make_engine(database_url: str) -> Engine:
     if database_url.startswith("sqlite") and ":memory:" in database_url:
         # One shared connection, otherwise every session would see its own empty database.
         return create_engine(database_url, poolclass=StaticPool, connect_args={"check_same_thread": False})
-    return create_engine(database_url, pool_pre_ping=True)
+    url = make_url(database_url)
+    if url.drivername == "postgresql":
+        # SQLAlchemy 2.1 maps a bare postgresql:// URL to psycopg 3; the image ships psycopg2.
+        url = url.set(drivername="postgresql+psycopg2")
+    return create_engine(url, pool_pre_ping=True)
 
 
 def run_migrations(engine: Engine) -> None:
